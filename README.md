@@ -15,4 +15,3 @@ The `dejargon/references/glossary.md` file is a **template**: fill in your own o
 ## License
 
 MIT
-# skills
