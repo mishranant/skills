@@ -25,9 +25,11 @@ De-jargon; do not dumb down. Every technical fact, number, and causal step from 
 must survive.
 
 Two failure modes to avoid in equal measure. **Under-explaining:** expanding acronyms and
-calling it done, leaving prose that parses but teaches nothing. **Over-reaching:** inventing
-detail, motivation, or everyday-object analogies to make it feel explained. §5 exists to get
-the teaching without the invention: use real teaching devices, keep every one of them
+calling it done, leaving prose that parses but teaches nothing — including the subtler form
+where every individual cog is glossed but the reader still can't see the machine the cogs sit
+in (the pipeline, the request flow, the architecture the source assumes). **Over-reaching:**
+inventing detail, motivation, or everyday-object analogies to make it feel explained. §5 exists
+to get the teaching without the invention: use real teaching devices, keep every one of them
 traceable, and route what you don't know instead of filling it in.
 
 ## Inputs
@@ -115,6 +117,36 @@ confident hit**:
 Record each resolution as *(expansion, one-line plain meaning, source URL)*. **If nothing
 resolves it confidently, mark it unresolved — never invent a meaning.** (See §3 for what to
 do about unresolved terms.)
+
+### 4.5 Calibrate scope: cogs vs. the machine
+
+Glossing terms is necessary; it is not always sufficient. Internal terms are usually *cogs in
+a machine the reader can't see* — a stage in a pipeline, a call in a protocol, a role in a
+service topology, a state in a state machine. Glossing each cog in isolation can leave a reader
+who now knows every word and still cannot picture how the thing works. Decide, before
+rewriting, which case you're in:
+
+- **Self-contained** — the source's own text carries enough structure that inline glosses make
+  it followable. Go straight to the rewrite. Default for short text.
+- **Cogs-in-a-machine** — the terms only resolve against an enclosing system the source assumes
+  but never lays out. Here, term-by-term glossing under-serves the reader by design.
+
+For the cogs-in-a-machine case, do one of two things — never silently default to bare glossing:
+
+1. **Build the frame from resolved sources.** Produce the bigger picture — a diagram, an ordered
+   stage list, a request/data flow, a topology — pulled from docs / code / definitions and cited
+   as resolved content per §5a (kind 2). Lead with the frame, then place the glossed terms inside
+   it. Anything you infer about structure the sources don't state is marked illustrative per §5a.
+2. **Offer it** when building the frame is heavy, needs tools the user may not want spent, or you
+   are unsure they want that altitude. Ask in one line — "do you want me to work out the bigger
+   picture these terms sit in (the pipeline / flow / architecture) from the docs and code, or
+   just gloss the terms as they appear?" — then follow their answer. Don't disappear into deep
+   research the user didn't ask for, and don't bury them in cogs when they wanted the machine.
+
+The frame is governed by the whole provenance regime exactly like the prose is: it is resolved
+content or marked scaffolding, never invented structure. **A fabricated architecture or a made-up
+stage ordering is the most authoritative-looking hallucination this skill can emit** — a diagram
+reads as ground truth. Ground every box and edge, or mark it illustrative, or leave it out.
 
 ### 5. Rewrite
 
@@ -427,6 +459,9 @@ Run the rewrite against these. Any failure means fix it, not ship it.
 - Does any ladder borrow a pain at an **interior** rung rather than only the entry rung?
 
 **Craft**
+- Did you calibrate scope (§4.5)? If the terms are cogs in a machine the source never lays out,
+  did you either build the enclosing frame from resolved sources or offer to — rather than
+  silently shipping bare glosses? Is every box/edge in any frame grounded or marked illustrative?
 - Could a newcomer act on each gloss, or does it only expand letters?
 - Is every term defined before the sentence that depends on it — no forward references?
 - Does each thing keep one name throughout?
@@ -441,6 +476,10 @@ Run the rewrite against these. Any failure means fix it, not ship it.
 ## Guardrails
 - **Never fabricate a definition.** An honest "unresolved" — or an up-front, pinpointed ask —
   beats a confident guess.
+- **Don't ship cogs when the reader needs the machine (§4.5).** When terms only make sense
+  against an enclosing system the source assumes, build that frame from grounded sources or
+  offer to — don't dutifully de-acronym parts in isolation. Any frame (diagram, stage order,
+  flow) is resolved content or marked illustrative, never invented structure.
 - **Handle missing tooling explicitly.** If you lack the channels to resolve the core terms,
   ask the user up front to either connect a source (glossary / doc-search / chat-search MCP)
   or supply the specific definitions — don't quietly ship a guessy rewrite.
