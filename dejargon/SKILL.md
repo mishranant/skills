@@ -8,10 +8,12 @@ description: >-
   terms using whatever resolution channels are available (the org's
   glossary/term-lookup, service catalog, internal docs/wiki, linked chat
   threads, code search), then produces a de-jargoned rewrite with each term
-  glossed inline (no separate glossary table). Use when asked to "dejargon",
-  "translate this", "explain in plain engineering terms", "de-acronym this",
-  "make this readable for a new grad / newcomer", or when handed a jargon-heavy
-  chat thread, doc, or writeup to simplify.
+  glossed inline (no separate glossary table). Use when handed a specific
+  jargon-heavy source to rewrite — asked to "dejargon", "de-acronym this",
+  "translate this internal text", "make this thread/doc readable for a
+  newcomer", or "rewrite this in plain terms". For teaching a topic from first
+  principles when there is no specific source whose every fact must be
+  preserved, use the `teach` skill instead.
 user-invocable: true
 ---
 
@@ -299,6 +301,14 @@ table; the definitions live in the prose. One explanation per term, in place.
 
 #### 5c. How to structure the explanation
 
+**Build in dependency order.** Before writing, list the few concepts the reader actually needs
+and the order they depend on, then introduce each one only at the point the next sentence needs
+it. If concept B can't be understood without concept A, A comes first. This is the §5b term rule
+("define at first load-bearing use, in dependency order") applied to the whole explanation, not
+just to single glosses: no front-loaded background dump, no forward references ("explained
+below"), and when the dependency chain and the source's own paragraph order disagree, let the
+dependency chain set the sequence (keeping every fact — §5e).
+
 **Why before what.** A mechanism explained before its motivation does not stick. Lead a
 section with the problem the thing exists to solve, then the thing. Where the motivation is
 allowed to come from, and what to do when the source omits it, is the routing table in
@@ -325,6 +335,16 @@ badly inside flowing prose. Hence one exemption, tightly scoped:
 - **Every rung's resolution is the source's own**, not one you know from the industry.
 - If an interior rung would need a pain the source never mentions, **the ladder stops
   there.** A three-rung ladder is fine. A fourth invented rung is not.
+
+**Earn each abstraction.** The ladder is at its most useful when the "mechanisms" are the
+source's successive abstractions. For each abstraction the source introduces, make four things
+explicit *where the source states them*: the limitation of the approach before it, the problem
+it solves, what it now hides or takes responsibility for, and the new cost, assumption, or
+failure mode it adds. Never present an abstraction as simply "better" or as magic — a simpler
+interface almost always moves complexity somewhere else, and the reader should be told where.
+This is still the ladder, so the firewall is unchanged: each of those four is source content or
+a cited lookup, and the interior-rung ban applies — if naming what an abstraction "hides" or
+"costs" would require a limitation the source never states, leave it out rather than invent it.
 
 **One running example, preferably the source's own.** If the source already works a concrete
 case, adopt it and carry it through the whole rewrite rather than introducing fresh cases
@@ -467,6 +487,8 @@ Run the rewrite against these. Any failure means fix it, not ship it.
 - Does each thing keep one name throughout?
 - Does any sentence carry more than one new idea?
 - Does every ladder rung's pain come from the source?
+- For any earned abstraction, do its "hides" and "costs" come from the source, not from what
+  you'd expect an abstraction of that kind to do?
 - Is every question answered immediately, from sourced content?
 - Does every comparison's donor side come from the reader's stipulated engineering
   vocabulary — and would a competent engineer find it useful rather than patronizing?
